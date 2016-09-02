@@ -42,11 +42,11 @@ while(cap.isOpened()):
   if len(facerect) > 0:
     #検出した顔を囲む矩形の作成
     for (x,y,w,h) in facerect:
+      該当の箇所だけ切り出し
+      cv2.imwrite("result/kiri"+str(frame_num)+".png", frame[y:y+h, x:x+w])
       cv2.rectangle(frame, (x,y),(x+w,y+h), color, thickness=7)
       #cv2.imwrite("result/"+frame_num+".png", frame)
       img_cnt += 1
-  #画像として書き出し
-  cv2.imwrite("result/"+str(frame_num)+".png", frame)
   #不要かもしれないけど、動画にもする
   out.write(frame)
   frame_num += 1
