@@ -42,12 +42,17 @@ while(cap.isOpened()):
   if len(facerect) > 0:
     #検出した顔を囲む矩形の作成
     for (x,y,w,h) in facerect:
-      # 該当の箇所だけ切り出し
-      cv2.imwrite("result/kiri"+str(frame_num)+".png", frame[y:y+h, x:x+w])
-      cv2.rectangle(frame, (x,y),(x+w,y+h), color, thickness=7)
-      #cv2.imwrite("result/"+frame_num+".png", frame)
-      img_cnt += 1
-  #不要かもしれないけど、動画にもする
+        #顔の部分だけ切り抜いてモザイク処理をする
+        cut_img = frame[y:y+h,x:x+w]
+        cut_face = cut_img.shape[:2][::-1]
+        #10分の1にする
+        cut_img = cv2.resize(cut_img,(cut_face[0]/30, cut_face[0]/30))
+        #画像を元のサイズに拡大
+        cut_img = cv2.resize(cut_img,cut_face,interpolation = cv2.cv.CV_INTER_NN)
+        #モザイク処理した部分を重ねる
+        frame[y:y+h,x:x+w] = cut_img
+        img_cnt += 1
+  #動画にする
   out.write(frame)
   frame_num += 1
  
