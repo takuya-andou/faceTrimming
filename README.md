@@ -8,10 +8,7 @@ https://opencvlibrary.svn.sourceforge.net/svnroot/opencvlibrary/tags/latest_test
 
 #ファイルの説明
 ##sample.py
-##概要
 写真から顔を検出して、枠を書く
-
-
 
 ##sampleFromVideo.py
 動画から顔を検出して、顔の部分だけフレームごとに切り出し。  
